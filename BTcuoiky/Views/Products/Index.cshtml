@@ -1,0 +1,149 @@
+﻿@model IEnumerable<BTcuoiky.Models.Product>
+
+@{
+    ViewBag.Title = "Product Catalog";
+}
+
+<div class="container my-5">
+
+    <!--
+        DESIGNER'S NOTE: A clear header.
+        Using flexbox to place the title and "Create" button on opposite ends.
+    -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 mb-0">Product Catalog</h1>
+        @Html.ActionLink(" Create New Product", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+
+    <!--
+        DESIGNER'S NOTE: We wrap the table in a card for a clean, modern container
+        that matches the design of our "Create" page.
+    -->
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">All Products</h5>
+        </div>
+        <div class="card-body">
+            <!--
+                DESIGNER'S NOTE: This wrapper is essential.
+                It makes the table horizontally scrollable on small screens
+                so it doesn't break your page layout.
+            -->
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <!-- Using "table-light" for a non-distracting, clean header -->
+                    <thead class="table-light">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProductName)
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayNameFor(model => model.Unit)
+                            </th>
+                            <!-- Right-aligning the "Price" column for numbers -->
+                            <th class="text-center">
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayNameFor(model => model.Category.CategoryName)
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayNameFor(model => model.Tags)
+                            </th>
+
+                            <!-- Right-aligning the actions column -->
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @* LOGIC HIỂN THỊ:
+                                        - Nếu tên dài hơn 50 ký tự: Cắt lấy 50 ký tự đầu + "..."
+                                        - Nếu tên ngắn hơn: Hiển thị bình thường
+                                        - Thêm thuộc tính 'title' để khi rê chuột vào sẽ hiện tên đầy đủ
+                                    *@
+                                    @if (item.ProductName.Length > 50)
+                                    {
+                                        <span title="@item.ProductName">
+                                            @item.ProductName.Substring(0, 50)...
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.ProductName)
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.Unit)
+                                </td>
+                                <td class="text-center">
+                                    <!--
+                                        DESIGNER'S NOTE: Formatting the price as currency.
+                                        This improves readability significantly.
+                                    -->
+                                    @String.Format("{0:N0}", item.Price)
+                                </td>
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                                </td>
+                                <td class="text-center">
+                                    @if (item.Tags != null && item.Tags.Any())
+                                    {
+                                        foreach (var tag in item.Tags)
+                                        {
+                                            <span class="badge bg-info text-dark me-1">@tag.TagName</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted small">No tags</span>
+                                    }
+                                </td>
+                                <!--
+                                    DESIGNER'S NOTE: The biggest UI upgrade.
+                                    The old "Edit | Details | Delete" text links are replaced
+                                    with a clean, icon-driven button group.
+
+                                    NOTE: We build the <a> tags manually so we can include icons.
+                                    Html.ActionLink() doesn't easily support <i> tags.
+                                -->
+                                <td class="text-end" style="min-width: 170px;">
+                                    <div class="d-flex flex-row justify-content-center gap-2" role="group" aria-label="Product Actions">
+                                        <a href="@Url.Action("Edit", "Products", new { id = item.ProductID })" class="btn btn-sm btn-outline-primary" title="Edit">
+                                            <i class="bi bi-pencil-fill me-1"></i> Edit
+                                        </a>
+                                        <a href="@Url.Action("Details", "Products", new { id = item.ProductID })" class="btn btn-sm btn-outline-info" title="Details">
+                                            <i class="bi bi-eye-fill me-1"></i> Details
+                                        </a>
+                                        <a href="@Url.Action("Delete", "Products", new { id = item.ProductID })" class="btn btn-sm btn-outline-danger" title="Delete">
+                                            <i class="bi bi-trash-fill me-1"></i> Delete
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div> <!-- end table-responsive -->
+        </div>
+
+        <!--
+            THAY ĐỔI MỚI: Thêm nút "Back to Home"
+            Tôi đã thêm một 'card-footer' để chứa nút quay về trang chủ,
+            giống như các trang Edit/Details.
+        -->
+        <div class="card-footer bg-light">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left-circle me-1"></i> Quay về Trang chủ
+            </a>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Add any page-specific scripts here if needed -->
+}

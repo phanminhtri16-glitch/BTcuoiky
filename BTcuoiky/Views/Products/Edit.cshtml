@@ -1,0 +1,129 @@
+﻿@model BTcuoiky.Models.Product
+
+@{
+    ViewBag.Title = "Edit " + Model.ProductName;
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+                <!--
+                  DESIGNER'S NOTE: A 'warning' header is a great visual cue
+                  that the user is in "edit" mode.
+                  We also display the product name so the user knows
+                  WHAT they are editing.
+                -->
+                <div class="card-header bg-warning text-dark">
+                    <h2 class="h4 mb-0"><i class="bi bi-pencil-square me-2"></i> Edit: @Model.ProductName</h2>
+                </div>
+                <div class="card-body">
+
+                    @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <p class="text-muted">Make changes to the product details below and click 'Save Changes' when finished.</p>
+                        <hr class="mb-4">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.ProductID, htmlAttributes: new { @class = "form-label fw-bold" })
+                            @Html.EditorFor(model => model.ProductID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            <small class="form-text text-muted">The Product ID cannot be changed.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "form-label fw-bold" })
+                            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "form-label fw-bold" })
+                                @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Unit, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "form-label fw-bold" })
+                                @Html.TextBoxFor(model => model.Price, "{0:0}", new { @class = "form-control", type = "number", step = "1" })
+                                @* Hoặc giữ EditorFor nhưng thêm Value *@
+                                @* @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", type = "number", step = "1", Value = String.Format("{0:0}", Model.Price) } }) *@
+                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.CategoryID, "Category", htmlAttributes: new { @class = "form-label fw-bold" })
+                            @Html.DropDownList("CategoryID", null, "--- Select a Category ---", htmlAttributes: new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tags</label>
+                            <div class="card p-3 bg-light">
+                                <div class="row">
+                                    @{
+                                        var allTags = ViewBag.AllTags as List<BTcuoiky.Models.Tag>;
+                                        // Lấy danh sách ID của các tag hiện tại của sản phẩm
+                                        var currentTags = Model.Tags.Select(t => t.TagID).ToList();
+                                    }
+
+                                    @if (allTags != null)
+                                    {
+                                        foreach (var tag in allTags)
+                                        {
+                                            // Kiểm tra xem tag này có trong danh sách hiện tại không
+                                            bool isChecked = currentTags.Contains(tag.TagID);
+
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           name="SelectedTags"
+                                                           value="@tag.TagID"
+                                                           id="tag_@tag.TagID"
+                                                           @(isChecked ? "checked" : "")> <!-- Tự động check -->
+                                                    <label class="form-check-label" for="tag_@tag.TagID">
+                                                        @tag.TagName
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ImageFile" class="form-label fw-bold">Product Image</label>
+                            <input type="file" name="ImageFile" id="ImageFile" class="form-control" accept="image/png, image/jpeg" />
+                            @* Thêm message nếu upload lỗi *@
+                            @Html.ValidationMessage("ImageUpload", "", new { @class = "text-danger" })
+                        </div>
+
+                        <hr class="mt-4">
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <a href="@Url.Action("Index", "Products")" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left-circle me-1"></i> Back to List
+                            </a>
+
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-save-fill me-2"></i> Save Changes
+                            </button>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

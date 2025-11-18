@@ -1,0 +1,107 @@
+﻿@model BTcuoiky.Models.Product
+
+@{
+    ViewBag.Title = "Create New Product";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h4 mb-0"><i class="bi bi-box-seam-fill me-2"></i> Create New Product</h2>
+                </div>
+                <div class="card-body">
+
+                    @* THAY ĐỔI 1: Thêm 'enctype' để cho phép upload file *@
+                    @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <p class="text-muted">Fill out the form below to add a new product to the catalog.</p>
+                        <hr class="mb-4">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.ProductID, htmlAttributes: new { @class = "form-label fw-bold" })
+                            @Html.EditorFor(model => model.ProductID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "form-label fw-bold" })
+                            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "form-label fw-bold" })
+                                @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Unit, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "form-label fw-bold" })
+                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", type = "number", step = "1" } })
+                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.CategoryID, "Category", htmlAttributes: new { @class = "form-label fw-bold" })
+                            @Html.DropDownList("CategoryID", null, "--- Select a Category ---", htmlAttributes: new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tags (Chọn nhiều)</label>
+                            <div class="card p-3 bg-light">
+                                <div class="row">
+                                    @if (ViewBag.AllTags != null)
+                                    {
+                                        foreach (var tag in ViewBag.AllTags as List<BTcuoiky.Models.Tag>)
+                                        {
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <!-- Name="SelectedTags" phải khớp với tham số trong Controller -->
+                                                    <input class="form-check-input" type="checkbox" name="SelectedTags" value="@tag.TagID" id="tag_@tag.TagID">
+                                                    <label class="form-check-label" for="tag_@tag.TagID">
+                                                        @tag.TagName
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        @* THAY ĐỔI 2: Thêm ô input cho file ảnh *@
+                        <div class="mb-3">
+                            <label for="ImageFile" class="form-label fw-bold">Product Image</label>
+                            <input type="file" name="ImageFile" id="ImageFile" class="form-control" accept="image/png, image/jpeg" />
+                            @* Thêm message nếu upload lỗi *@
+                            @Html.ValidationMessage("ImageUpload", "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <hr class="mt-4">
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-secondary" })
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-plus-circle me-2"></i> Create Product
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

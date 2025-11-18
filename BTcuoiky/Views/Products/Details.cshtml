@@ -1,0 +1,81 @@
+﻿@model BTcuoiky.Models.Product
+
+@{
+    ViewBag.Title = "Details: " + Model.ProductName;
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+                <div class="card-header bg-info text-dark">
+                    <h2 class="h4 mb-0"><i class="bi bi-eye-fill me-2"></i> Details: @Model.ProductName</h2>
+                </div>
+
+                <div class="card-body">
+                    <p class="text-muted">Viewing the product details for @Model.ProductName.</p>
+                    <hr>
+                    <dl class="row">
+                        <dt class="col-sm-4 fw-bold">
+                            Product ID
+                        </dt>
+                        <dd class="col-sm-8 mb-3 mb-sm-0">
+                            @Html.DisplayFor(model => model.ProductID)
+                        </dd>
+                        <dt class="col-sm-4 fw-bold">
+                            @Html.DisplayNameFor(model => model.ProductName)
+                        </dt>
+                        <dd class="col-sm-8 mb-3 mb-sm-0">
+                            @Html.DisplayFor(model => model.ProductName)
+                        </dd>
+                        <dt class="col-sm-4 fw-bold">
+                            @Html.DisplayNameFor(model => model.Unit)
+                        </dt>
+                        <dd class="col-sm-8 mb-3 mb-sm-0">
+                            @Html.DisplayFor(model => model.Unit)
+                        </dd>
+                        <dt class="col-sm-4 fw-bold">
+                            @Html.DisplayNameFor(model => model.Price)
+                        </dt>
+                        <dd class="col-sm-8 mb-3 mb-sm-0">
+                            @String.Format("{0:N0}", Model.Price)
+                        </dd>
+                        <dt class="col-sm-4 fw-bold">
+                            @Html.DisplayNameFor(model => model.Category.CategoryName)
+                        </dt>
+                        <dd class="col-sm-8 mb-3 mb-sm-0">
+                            @Html.DisplayFor(model => model.Category.CategoryName)
+                        </dd>
+                        <dt class="col-sm-4 fw-bold">Tags</dt>
+                        <dd class="col-sm-8 mb-3 mb-sm-0">
+                            @if (Model.Tags != null && Model.Tags.Any())
+                            {
+                                foreach (var tag in Model.Tags)
+                                {
+                                    <span class="badge bg-secondary me-1">@tag.TagName</span>
+                                }
+                            }
+                            else
+                            {
+                                <span>None</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="card-footer bg-light">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="@Url.Action("Index", "Products")" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left-circle me-1"></i> Back to List
+                        </a>
+                        <a href="@Url.Action("Edit", "Products", new { id = Model.ProductID })" class="btn btn-primary">
+                            <i class="bi bi-pencil-fill me-1"></i> Edit This Product
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

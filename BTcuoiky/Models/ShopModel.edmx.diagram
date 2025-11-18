@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="654edd3af241443b87df2bd64ccd47ef" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="BTcuoikyModel.Category" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BTcuoikyModel.Customer" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BTcuoikyModel.Order" Width="1.5" PointX="4.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BTcuoikyModel.OrderDetail" Width="1.5" PointX="8.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BTcuoikyModel.Product" Width="1.5" PointX="3.875" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="BTcuoikyModel.FK_Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="BTcuoikyModel.FK_Order_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BTcuoikyModel.FK_OrderDetail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="BTcuoikyModel.FK_OrderDetail_Product" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BTcuoikyModel.Tag" Width="1.5" PointX="7.75" PointY="5.75" />
+        <AssociationConnector Association="BTcuoikyModel.ProductTag" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

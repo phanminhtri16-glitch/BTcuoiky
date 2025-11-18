@@ -1,0 +1,109 @@
+﻿@model BTcuoiky.Models.Product
+
+@{
+    ViewBag.Title = "Delete " + Model.ProductName;
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0 border-danger">
+                <!--
+                  DESIGNER'S NOTE: A 'danger' header is a critical
+                  visual cue that this is a destructive, non-reversible action.
+                  The icon reinforces this warning.
+                -->
+                <div class="card-header bg-danger text-white">
+                    <h2 class="h4 mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i> Delete Confirmation</h2>
+                </div>
+
+                <div class="card-body">
+                    <!-- Example: "Are you sure you want to permanently delete Super Widget?" -->
+                    <h3 class="h5 text-danger">Are you sure you want to permanently delete <strong>@Model.ProductName</strong>?</h3>
+                    <p class="text-muted">This action cannot be undone. Please review the details below before proceeding.</p>
+                    <hr>
+
+                    <!--
+                      DESIGNER'S NOTE: We re-use the clean <dl> from our "Details" page.
+                      This confirms to the user exactly what item they are about to delete.
+                    -->
+                    <dl class="row">
+                        <dt class="col-sm-4 fw-bold">
+                            Product ID
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.ProductID)
+                        </dd>
+
+                        <dt class="col-sm-4 fw-bold">
+                            @Html.DisplayNameFor(model => model.ProductName)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.ProductName)
+                        </dd>
+
+                        <dt class="col-sm-4 fw-bold">
+                            @Html.DisplayNameFor(model => model.Unit)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Unit)
+                        </dd>
+
+                        <dt class="col-sm-4 fw-bold">
+                            @Html.DisplayNameFor(model => model.Price)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @String.Format("{0:N0}", Model.Price)
+                        </dd>
+
+                        <dt class="col-sm-4 fw-bold">
+                            @Html.DisplayNameFor(model => model.Category.CategoryName)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Category.CategoryName)
+                        </dd>
+                        <dt class="col-sm-4 fw-bold">Tags</dt>
+                        <dd class="col-sm-8 mb-3 mb-sm-0">
+                            @if (Model.Tags != null && Model.Tags.Any())
+                            {
+                                foreach (var tag in Model.Tags)
+                                {
+                                    <span class="badge bg-secondary me-1">@tag.TagName</span>
+                                }
+                            }
+                            else
+                            {
+                                <span>None</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="card-footer bg-light">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <!--
+                          DESIGNER'S NOTE: The action buttons are clearly separated.
+                          A safe "Back" link and a very obvious, large, red "Delete" button.
+                        -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="@Url.Action("Index", "Products")" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left-circle me-1"></i> Cancel & Back to List
+                            </a>
+                            <button type="submit" class="btn btn-danger btn-lg">
+                                <i class="bi bi-trash-fill me-2"></i> Yes, Delete Product
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
