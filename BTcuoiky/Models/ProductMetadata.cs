@@ -5,13 +5,20 @@ namespace BTcuoiky.Models
 {
     public class ProductMetadata
     {
-        // --- ĐOẠN MỚI THÊM VÀO --- //
-        [Required(ErrorMessage = "Vui lòng nhập mã sản phẩm.")] // Đổi thông báo lỗi tiếng Anh -> Tiếng Việt
+        // --- Thông báo lỗi = tiếng việt --- //
+        [Required(ErrorMessage = "Vui lòng nhập mã sản phẩm.")] 
         public int ProductID { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập tên sản phẩm.")]
+        public int ProductName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập số lượng sản phẩm.")]
+        public int Unit { get; set; }
 
 
         // --- ĐOẠN CŨ CỦA BẠN (GIỮ NGUYÊN) --- //
         [DisplayFormat(DataFormatString = "{0:N0}")]
+        [Required(ErrorMessage = "Vui lòng nhập giá sản phẩm.")]
         public Nullable<decimal> Price { get; set; }
     }
 
