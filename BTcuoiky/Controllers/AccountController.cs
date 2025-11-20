@@ -70,9 +70,10 @@ namespace BTcuoiky.Controllers
                         CustomerID = Guid.NewGuid().ToString().Substring(0, 10),
                         FullName = model.Email, // Tạm thời dùng Email làm FullName, bạn nên thêm ô FullName vào form
                         Email = model.Email,
-                        Password = model.Password // CẢNH BÁO BẢO MẬT!
+                        Password = model.Password, // CẢNH BÁO BẢO MẬT!
+                        Role = "User" // Gán vai trò mặc định là "User"
                     };
-
+                    
                     db.Customers.Add(newUser);
                     db.SaveChanges();
 

@@ -251,7 +251,7 @@
                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Home", new { categoryID = 3 })">Tròng Kính</a></li>
                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Home", new { categoryID = 4 })">Kính Áp Tròng</a></li>
 
-                    <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Liên Hệ</a></li>
                 </ul>
 
                 <div class="d-flex align-items-center ms-auto">
@@ -436,7 +436,7 @@
                                     </div>
                                 }
                                 <div class="mb-3"><label class="form-label">Email</label>@Html.TextBox("Email", null, new { @class = "form-control", type = "email", required = "required" })</div>
-                                <div class="mb-3"><label class="form-label">Mật khẩu</label>@Html.Password("Password", new { @class = "form-control", required = "required" })</div>
+                                <div class="mb-3"><label class="form-label">Mật khẩu</label>@Html.Password("Password", null, new { @class = "form-control", required = "required" })</div>
                                 <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
                             }
                         </div>
@@ -456,8 +456,8 @@
                                     </div>
                                 }
                                 <div class="mb-3"><label class="form-label">Email</label>@Html.TextBox("Email", null, new { @class = "form-control", type = "email", required = "required" })</div>
-                                <div class="mb-3"><label class="form-label">Mật khẩu</label>@Html.Password("Password", new { @class = "form-control", required = "required" })</div>
-                                <div class="mb-3"><label class="form-label">Xác nhận</label>@Html.Password("ConfirmPassword", new { @class = "form-control", required = "required" })</div>
+                                <div class="mb-3"><label class="form-label">Mật khẩu</label>@Html.Password("Password", null, new { @class = "form-control", required = "required" })</div>
+                                <div class="mb-3"><label class="form-label">Xác nhận</label>@Html.Password("ConfirmPassword", null, new { @class = "form-control", required = "required" })</div>
                                 <button type="submit" class="btn btn-success w-100">Tạo tài khoản</button>
                             }
                         </div>
