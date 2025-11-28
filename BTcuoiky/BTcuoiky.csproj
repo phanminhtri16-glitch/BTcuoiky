@@ -180,6 +180,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\BTcuoiky.mdf" />
+    <Content Include="App_Data\BTcuoiky_log.ldf">
+      <DependentUpon>BTcuoiky.mdf</DependentUpon>
+    </Content>
     <Content Include="BTcuoikyscript.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -204,10 +208,6 @@
     <Content Include="Content\IMG\Rayban Eyewear - Sunglasses - 0RB3845.jpg" />
     <Content Include="Content\IMG\shoplogo-removebg-preview.png" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Database\BTcuoiky.mdf" />
-    <Content Include="Database\BTcuoiky_log.ldf">
-      <DependentUpon>BTcuoiky.mdf</DependentUpon>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -263,9 +263,7 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
